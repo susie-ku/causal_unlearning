@@ -1,12 +1,12 @@
 # Causal Machine Unlearning via Counterfactual World Modeling
 
-This repository turns the proposal in `ML808_Project-2.pdf` into a runnable PyTorch project. It implements the proposal's proof-of-concept on Colored MNIST:
+This repository implements the proof-of-concept on Colored MNIST:
 
 - `theta_0`: a baseline model trained in the observational world `w`
 - `theta_*`: an oracle retrained model trained from scratch in the intervened world `w'`
 - `theta_u`: a post-hoc unlearned model produced by fine-tuning `theta_0`
 
-The code follows the proposal's experimental structure:
+The code follows the experimental structure:
 
 1. Build Colored MNIST with a controllable color-label spuriosity.
 2. Train the baseline and oracle models.
@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 ## Quickstart
 
-Run the full proposal pipeline:
+Run the full pipeline:
 
 ```bash
 causal-unlearning run \
@@ -95,7 +95,7 @@ causal-unlearning unlearn \
   --lambda-locality 0.001
 ```
 
-Evaluate checkpoints on the proposal metrics:
+Evaluate checkpoints:
 
 ```bash
 causal-unlearning evaluate \
@@ -109,7 +109,7 @@ causal-unlearning evaluate \
 
 ## Metrics
 
-The code implements the proposal's three core evaluation targets:
+The code implements the three core evaluation targets:
 
 - `observational_accuracy`: accuracy on the spurious observational world
 - `intervened_accuracy`: accuracy when color is randomized
@@ -118,7 +118,6 @@ The code implements the proposal's three core evaluation targets:
 
 ## Notes
 
-- The current workspace did not have PyTorch or torchvision installed, so the code was written to the proposal specification but not executed end-to-end here.
 - The included unit tests only cover config and CLI parsing because they do not require heavy ML dependencies.
-- The default data construction matches the proposal: digits `0-4` are mostly red and digits `5-9` are mostly green in `w`, while `w'` randomizes color uniformly.
+- Digits `0-4` are mostly red and digits `5-9` are mostly green in `w`, while `w'` randomizes color uniformly.
 
