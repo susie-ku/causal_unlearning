@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "causal-unlearning"
+version = "0.1.0"
+description = "Proof-of-concept implementation of causal machine unlearning via counterfactual world modeling."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib>=3.8",
+  "numpy>=1.26",
+  "torch>=2.2",
+  "torchvision>=0.17",
+]
+
+[project.scripts]
+causal-unlearning = "causal_unlearning.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

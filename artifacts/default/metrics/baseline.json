@@ -1,0 +1,51 @@
+{
+  "checkpoint": "artifacts/default/checkpoints/baseline.pt",
+  "history": [
+    {
+      "causal_effect_proxy": 1.8859252506256103,
+      "epoch": 1.0,
+      "intervened_accuracy": 0.2152,
+      "observational_accuracy": 0.36,
+      "train_accuracy": 0.27645,
+      "train_loss": 1.873432776260376
+    },
+    {
+      "causal_effect_proxy": 1.9449423217773438,
+      "epoch": 2.0,
+      "intervened_accuracy": 0.2974,
+      "observational_accuracy": 0.5046,
+      "train_accuracy": 0.4026,
+      "train_loss": 1.5477790857315064
+    },
+    {
+      "causal_effect_proxy": 1.709372414970398,
+      "epoch": 3.0,
+      "intervened_accuracy": 0.4438,
+      "observational_accuracy": 0.714,
+      "train_accuracy": 0.5412,
+      "train_loss": 1.2952313594818115
+    },
+    {
+      "causal_effect_proxy": 1.7860746417999267,
+      "epoch": 4.0,
+      "intervened_accuracy": 0.4944,
+      "observational_accuracy": 0.795,
+      "train_accuracy": 0.6992,
+      "train_loss": 0.9510203611850738
+    },
+    {
+      "causal_effect_proxy": 2.2375574069976807,
+      "epoch": 5.0,
+      "intervened_accuracy": 0.514,
+      "observational_accuracy": 0.8178,
+      "train_accuracy": 0.78305,
+      "train_loss": 0.7009496603012085
+    }
+  ],
+  "metrics": {
+    "causal_effect_proxy": 2.2375574069976807,
+    "intervened_accuracy": 0.514,
+    "observational_accuracy": 0.8178
+  },
+  "name": "baseline"
+}

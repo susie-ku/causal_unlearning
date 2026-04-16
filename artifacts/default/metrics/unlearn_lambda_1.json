@@ -1,0 +1,37 @@
+{
+  "checkpoint": "artifacts/default/checkpoints/unlearn_lambda_1.pt",
+  "history": [
+    {
+      "causal_effect_loss": 0.4220248288154602,
+      "causal_effect_proxy": 0.185240772151947,
+      "epoch": 1.0,
+      "fidelity_to_oracle_kl": 1.2903679222106934,
+      "intervened_accuracy": 0.7006,
+      "locality_loss": 3.8895183921249554e-05,
+      "observational_accuracy": 0.8462,
+      "retain_loss": 0.904339346408844,
+      "train_accuracy": 0.77165,
+      "train_loss": 1.326364211845398
+    },
+    {
+      "causal_effect_loss": 0.2913870791435242,
+      "causal_effect_proxy": 0.1424996651649475,
+      "epoch": 2.0,
+      "fidelity_to_oracle_kl": 1.047257550430298,
+      "intervened_accuracy": 0.7354,
+      "locality_loss": 0.00014608154667075725,
+      "observational_accuracy": 0.8456,
+      "retain_loss": 0.8376043161392212,
+      "train_accuracy": 0.80065,
+      "train_loss": 1.128991544342041
+    }
+  ],
+  "lambda_ce": 1.0,
+  "metrics": {
+    "causal_effect_proxy": 0.1424996651649475,
+    "fidelity_to_oracle_kl": 1.047257550430298,
+    "intervened_accuracy": 0.7354,
+    "observational_accuracy": 0.8456
+  },
+  "name": "unlearn_lambda_1"
+}

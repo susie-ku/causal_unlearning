@@ -1,0 +1,124 @@
+# Causal Machine Unlearning via Counterfactual World Modeling
+
+This repository turns the proposal in `ML808_Project-2.pdf` into a runnable PyTorch project. It implements the proposal's proof-of-concept on Colored MNIST:
+
+- `theta_0`: a baseline model trained in the observational world `w`
+- `theta_*`: an oracle retrained model trained from scratch in the intervened world `w'`
+- `theta_u`: a post-hoc unlearned model produced by fine-tuning `theta_0`
+
+The code follows the proposal's experimental structure:
+
+1. Build Colored MNIST with a controllable color-label spuriosity.
+2. Train the baseline and oracle models.
+3. Unlearn color as the "forget-variable" by minimizing retained task loss, a causal effect penalty, and a locality penalty.
+4. Measure retained utility, causal forgetting, and fidelity to retraining.
+
+## Project Layout
+
+```text
+src/causal_unlearning/
+  cli.py           Command line interface
+  config.py        Experiment configuration dataclasses
+  datasets.py      Colored MNIST generation and dataloaders
+  experiments.py   End-to-end training, unlearning, and evaluation
+  metrics.py       Accuracy, causal effect proxy, and fidelity metrics
+  models.py        Small CNN baseline
+  plotting.py      Summary plots for the sweep
+  training.py      Optimization loops and checkpoint helpers
+  utils.py         Reproducibility and JSON helpers
+tests/
+  test_cli.py
+  test_config.py
+```
+
+## Environment
+
+Create a virtual environment and install the package:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
+
+If you prefer a requirements file:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Quickstart
+
+Run the full proposal pipeline:
+
+```bash
+causal-unlearning run \
+  --output-dir artifacts/default \
+  --data-root data \
+  --download \
+  --train-size 20000 \
+  --eval-size 5000 \
+  --baseline-epochs 5 \
+  --oracle-epochs 5 \
+  --unlearning-epochs 2 \
+  --lambda-ce-values 0.0,0.1,0.5,1.0
+```
+
+This command will:
+
+- build the observational world `w` and intervened world `w'`
+- train `baseline.pt` and `oracle.pt`
+- sweep several causal-effect weights for unlearning
+- save checkpoints, JSON metrics, and plots under `artifacts/default/`
+
+## Individual Commands
+
+Train a single supervised model:
+
+```bash
+causal-unlearning train \
+  --world observational \
+  --name baseline \
+  --output-dir artifacts/single_run \
+  --download
+```
+
+Run post-hoc unlearning from a trained baseline:
+
+```bash
+causal-unlearning unlearn \
+  --baseline-checkpoint artifacts/default/checkpoints/baseline.pt \
+  --oracle-checkpoint artifacts/default/checkpoints/oracle.pt \
+  --output-dir artifacts/unlearning_only \
+  --download \
+  --lambda-ce 0.5 \
+  --lambda-locality 0.001
+```
+
+Evaluate checkpoints on the proposal metrics:
+
+```bash
+causal-unlearning evaluate \
+  --checkpoints artifacts/default/checkpoints/baseline.pt \
+              artifacts/default/checkpoints/oracle.pt \
+              artifacts/default/checkpoints/unlearn_lambda_0p5.pt \
+  --oracle-checkpoint artifacts/default/checkpoints/oracle.pt \
+  --output-json artifacts/default/metrics/manual_eval.json \
+  --download
+```
+
+## Metrics
+
+The code implements the proposal's three core evaluation targets:
+
+- `observational_accuracy`: accuracy on the spurious observational world
+- `intervened_accuracy`: accuracy when color is randomized
+- `causal_effect_proxy`: a paired counterfactual invariance estimate based on symmetric KL divergence between predictions for the same digit under two color interventions
+- `fidelity_to_oracle_kl`: expected KL divergence between a candidate model and the oracle retrained model on `w'`
+
+## Notes
+
+- The current workspace did not have PyTorch or torchvision installed, so the code was written to the proposal specification but not executed end-to-end here.
+- The included unit tests only cover config and CLI parsing because they do not require heavy ML dependencies.
+- The default data construction matches the proposal: digits `0-4` are mostly red and digits `5-9` are mostly green in `w`, while `w'` randomizes color uniformly.
+
