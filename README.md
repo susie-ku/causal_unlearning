@@ -218,7 +218,7 @@ causal_unlearning_new/
 
 `artifacts/experiment_ledger.json` lists every experiment with its config,
 seeds, runtime, and key metrics.  Numbers in the paper are sourced directly
-from these JSON files (see `paper/generate_figures*.py`).
+from these JSON files.
 
 ---
 
