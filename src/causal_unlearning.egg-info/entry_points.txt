@@ -1,2 +1,0 @@
-[console_scripts]
-causal-unlearning = causal_unlearning.cli:main

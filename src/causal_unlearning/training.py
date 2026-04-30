@@ -67,6 +67,14 @@ def train_supervised(
         }
         metrics = evaluate_model(model, evaluation_loaders.as_dict(), device)
         history.append(_epoch_summary(epoch, losses, metrics))
+        print(
+            f"  [supervised] epoch {epoch}/{config.epochs}"
+            f"  loss={losses['train_loss']:.4f}"
+            f"  acc={losses['train_accuracy']:.3f}"
+            f"  obs_acc={metrics.get('observational_accuracy', float('nan')):.3f}"
+            f"  int_acc={metrics.get('intervened_accuracy', float('nan')):.3f}",
+            flush=True,
+        )
 
     return model, history
 
@@ -90,6 +98,7 @@ def train_unlearning(
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.lr, weight_decay=config.weight_decay)
     history: list[dict[str, float]] = []
 
+    print(f"  [unlearning] lambda_ce={config.lambda_ce}  lambda_locality={config.lambda_locality}", flush=True)
     for epoch in range(1, config.epochs + 1):
         model.train()
         total_loss = 0.0
@@ -133,6 +142,14 @@ def train_unlearning(
         }
         metrics = evaluate_model(model, evaluation_loaders.as_dict(), device, oracle_model=oracle_model)
         history.append(_epoch_summary(epoch, losses, metrics))
+        print(
+            f"  [unlearning]  epoch {epoch}/{config.epochs}"
+            f"  loss={losses['train_loss']:.4f}"
+            f"  retain={losses['retain_loss']:.4f}"
+            f"  ce={losses['causal_effect_loss']:.4f}"
+            f"  acc={losses['train_accuracy']:.3f}",
+            flush=True,
+        )
 
     return model, history
 

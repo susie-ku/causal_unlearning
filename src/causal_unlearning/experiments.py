@@ -169,7 +169,9 @@ def run_full_pipeline(config: RunConfig) -> dict:
     artifact_dirs = _artifact_dirs(config.output_dir)
     save_json(artifact_dirs["root"] / "config.json", config.to_dict())
 
+    print("Building dataloaders...", flush=True)
     loaders = build_dataloaders(config.data)
+    print("Training baseline model (observational world)...", flush=True)
     baseline_model = build_model("small_cnn")
     baseline_model, baseline_history = train_supervised(
         baseline_model,
@@ -191,6 +193,7 @@ def run_full_pipeline(config: RunConfig) -> dict:
         metadata={"world": "observational", "metrics": baseline_metrics},
     )
 
+    print("Training oracle model (intervened world)...", flush=True)
     oracle_model = build_model("small_cnn")
     oracle_model, oracle_history = train_supervised(
         oracle_model,
@@ -228,6 +231,7 @@ def run_full_pipeline(config: RunConfig) -> dict:
     save_json(artifact_dirs["metrics"] / "oracle.json", oracle_result)
 
     unlearning_runs = []
+    print(f"Running unlearning sweep over {len(config.lambda_ce_values)} lambda_ce values...", flush=True)
     for lambda_ce in config.lambda_ce_values:
         unlearning_config = UnlearningConfig(
             epochs=config.unlearning.epochs,
