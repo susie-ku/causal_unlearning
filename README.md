@@ -238,4 +238,14 @@ seeds, runtime, and key metrics.  Numbers in the paper are sourced directly
 from these JSON files (see `paper/generate_figures*.py`).
 
 ---
+
+## Citation
+
+```bibtex
+@inproceedings{kuvshinova2026causal,
+  title  = {Causal Machine Unlearning via Counterfactual World Modeling},
+  author = {Kuvshinova, Kseniia and Alam, Mohammed Talha},
+  booktitle = {-},
+  year   = {2026}
+}
 ```
