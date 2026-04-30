@@ -171,17 +171,6 @@ python experiments/run_analysis_multiseed.py --task dist
 
 Outputs land under `artifacts/analysis_multiseed/`.
 
-### Figures and PDF
-
-```bash
-cd paper
-python generate_figures.py     # original CMNIST figures
-python generate_figures_v2.py  # multi-seed + Waterbirds figures
-pdflatex paper.tex && bibtex paper && pdflatex paper.tex && pdflatex paper.tex
-```
-
----
-
 ## Method in 30 lines
 
 ```python
@@ -212,12 +201,6 @@ causal_unlearning_new/
 │   ├── run_waterbirds_v2.py       # multi-seed Waterbirds protocol
 │   ├── run_analysis_multiseed.py  # multi-seed CMNIST analysis
 │   └── aggregate_waterbirds.py    # mean/std aggregation
-├── paper/
-│   ├── paper.tex                  # NeurIPS submission
-│   ├── references.bib
-│   ├── generate_figures.py        # original figures
-│   ├── generate_figures_v2.py     # multi-seed/Waterbirds figures
-│   └── figures/                   # 14 PDFs
 ├── artifacts/                     # all logs, JSONs, checkpoints (per-seed)
 │   ├── default/
 │   ├── multi_seed/
