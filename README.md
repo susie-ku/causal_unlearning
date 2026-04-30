@@ -1,7 +1,6 @@
 # Causal Machine Unlearning via Counterfactual World Modeling
 
-This repository accompanies our NeurIPS submission *Causal Machine Unlearning
-via Counterfactual World Modeling*.  It implements a post-hoc concept-level
+This repository implements a post-hoc concept-level
 unlearning method based on a paired-counterfactual causal-effect (CE) penalty,
 and reproduces all main experiments on Colored MNIST and Waterbirds.
 
@@ -239,14 +238,4 @@ seeds, runtime, and key metrics.  Numbers in the paper are sourced directly
 from these JSON files (see `paper/generate_figures*.py`).
 
 ---
-
-## Citation
-
-```bibtex
-@inproceedings{kuvshinova2026causal,
-  title  = {Causal Machine Unlearning via Counterfactual World Modeling},
-  author = {Kuvshinova, Kseniia and Alam, Mohammed Talha},
-  booktitle = {Advances in Neural Information Processing Systems},
-  year   = {2026}
-}
 ```
